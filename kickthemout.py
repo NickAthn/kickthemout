@@ -6,8 +6,16 @@
 Copyright (C) 2017-18 Nikolaos Kamarinakis (nikolaskam@gmail.com) & David Schütz (xdavid@protonmail.com)
 See License at nikolaskama.me (https://nikolaskama.me/kickthemoutproject)
 """
+# Following error occured on MacOS
+# Traceback (most recent call last):
+#   File "kickthemout.py", line 740, in <module>
+#     if checkInternetConnection():
+#   File "kickthemout.py", line 131, in checkInternetConnection
+#     except urllib.URLError as err:
+# NameError: name 'urllib' is not defined
+# Temporary fix following on line 18 and line 139
 
-import os, sys, logging, math, traceback, optparse, threading
+import os, sys, logging, math, traceback, optparse, threading, urllib #Importing urllib
 from time import sleep
 BLUE, RED, WHITE, YELLOW, MAGENTA, GREEN, END = '\33[94m', '\033[91m', '\33[97m', '\33[93m', '\033[1;35m', '\033[1;32m', '\033[0m'
 
@@ -128,7 +136,7 @@ def checkInternetConnection():
     try:
         urlopen('https://google.com', timeout=3)
         return True
-    except urllib.URLError as err:
+    except urllib.error.URLError as err: # urllib.URLError -> urllib.error.URLError
         return False
     except KeyboardInterrupt:
         shutdown()
