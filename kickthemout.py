@@ -7,7 +7,7 @@ Copyright (C) 2017-18 Nikolaos Kamarinakis (nikolaskam@gmail.com) & David Schüt
 See License at nikolaskama.me (https://nikolaskama.me/kickthemoutproject)
 """
 
-import os, sys, logging, math, traceback, optparse, threading
+import os, sys, logging, math, traceback, optparse, threading, urllib # Importing urllib
 from time import sleep
 BLUE, RED, WHITE, YELLOW, MAGENTA, GREEN, END = '\33[94m', '\033[91m', '\33[97m', '\33[93m', '\033[1;35m', '\033[1;32m', '\033[0m'
 
@@ -126,9 +126,9 @@ def runDebug():
 # make sure there is an internet connection
 def checkInternetConnection():
     try:
-        urlopen('https://google.com', timeout=3)
+        urllib.request.urlopen('http://google.com', timeout=3) # When https was used every check would turn false.
         return True
-    except urllib.URLError as err:
+    except urllib.URLError as err: 
         return False
     except KeyboardInterrupt:
         shutdown()
